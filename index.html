@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <div id="container">
+    <h1>Temperature Converter</h1>
+
+    <div class="input-container">
+      <label for="temperature">Temperature Value:</label>
+      <input type="text" id="temperature" placeholder="Enter temperature" />
+    </div>
+
+    <div class="input-container">
+      <label for="unit">Temperature Unit:</label>
+      <select id="unit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+    </div>
+
+    <button onclick="convertTemperature()">Convert</button>
+
+    <h1 class="result-heading">Converted Temperature:</h1>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const temperatureInput = document.getElementById('temperature').value;
+      const unit = document.getElementById('unit').value;
+      const resultElement = document.getElementById('result');
+      
+      if (isNaN(temperatureInput)) {
+        resultElement.innerText = 'Please enter a valid number for temperature.';
+        return;
+      }
+
+      const temperature = parseFloat(temperatureInput);
+
+      let convertedTemperature;
+      let resultUnit;
+
+      switch (unit) {
+        case 'celsius':
+          convertedTemperature = (temperature - 32) * (5/9);
+          resultUnit = 'Celsius';
+          break;
+        case 'fahrenheit':
+          convertedTemperature = (temperature * 9/5) + 32;
+          resultUnit = 'Fahrenheit';
+          break;
+        case 'kelvin':
+          convertedTemperature = temperature + 273.15;
+          resultUnit = 'Kelvin';
+          break;
+        default:
+          resultElement.innerText = 'Invalid unit selected.';
+          return;
+      }
+
+      resultElement.innerText = `${convertedTemperature.toFixed(2)} ${resultUnit}`;
+    }
+  </script>
+
+</body>
+</html>
